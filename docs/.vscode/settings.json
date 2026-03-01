@@ -1,5 +1,0 @@
-{
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["coverpage"],
-  "typescript.tsdk": "node_modules/typescript/lib"
-}

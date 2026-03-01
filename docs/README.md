@@ -1,32 +1,10 @@
-<p align="center">
-  <a href="https://docsify.js.org">
-    <img alt="docsify" src="./docs/_media/icon.svg">
-  </a>
-</p>
+# docsify
 
-<p align="center">
-  A magical documentation site generator.
-</p>
+> A magical documentation site generator.
 
-<p align="center">
-  <a href="#backers"><img alt="Backers on Open Collective" src="https://opencollective.com/docsify/backers/badge.svg?style=flat-square"></a>
-  <a href="#sponsors">
-    <img alt="Sponsors on Open Collective" src="https://opencollective.com/docsify/sponsors/badge.svg?style=flat-square"></a>
-  <a href="https://github.com/docsifyjs/docsify/actions/workflows/test.yml"><img src="https://github.com/docsifyjs/docsify/actions/workflows/test.yml/badge.svg" alt="Build & Test"></a>
-  <a href="https://www.npmjs.com/package/docsify"><img alt="npm" src="https://img.shields.io/npm/v/docsify.svg?style=flat-square"></a>
-  <a href="https://discord.gg/3NwKFyR"><img alt="Join Discord community and chat about Docsify" src="https://img.shields.io/discord/713647066802421792.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2&cacheSeconds=60"></a>
-  <a href="https://gitpod.io/#https://github.com/docsifyjs/docsify"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod Ready-to-Code"></a>
-</p>
+## What it is
 
-<p align="center">Gold Sponsor via <a href="https://opencollective.com/docsify">Open Collective</a></p>
-
-<p align="center">
-  <a href="https://opencollective.com/docsify/order/3254">
-    <img src="https://opencollective.com/docsify/tiers/gold-sponsor.svg?avatarHeight=48">
-  </a>
-</p>
-
-Docsify turns one or more Markdown files into a Website, with no build process required.
+Docsify turns your Markdown files into a documentation website instantly. Unlike most other documentation site generator tools, it doesn't need to build HTML files. Instead, it dynamically loads and parses your Markdown files and displays them as a website. To get started, create an `index.html` file and [deploy it on GitHub Pages](deploy.md) (for more details see the [Quick start](quickstart.md) guide).
 
 ## Features
 
@@ -37,47 +15,14 @@ Docsify turns one or more Markdown files into a Website, with no build process r
 - Useful plugin API
 - Emoji support
 
-## Quick Start
+## Examples
 
-Get going fast by using a static web server or GitHub Pages with this ready-to-use [Docsify Template](https://github.com/docsifyjs/docsify-template), review the [quick start tutorial](https://docsify.js.org/#/quickstart) or jump right into a CodeSandbox example site with the button below.
+Check out the [Showcase](https://github.com/docsifyjs/awesome-docsify#showcase) to see docsify in use.
 
-[![Edit 307qqv236](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/307qqv236)
+## Donate
 
-## Showcase
+Please consider donating if you think docsify is helpful to you or that my work is valuable. I am happy if you can help me [buy a cup of coffee](https://github.com/QingWei-Li/donate). :heart:
 
-A large collection of showcase projects are included in [awesome-docsify](https://github.com/docsifyjs/awesome-docsify#showcase).
+## Community
 
-## Links
-
-- [Documentation](https://docsify.js.org)
-- [Docsify CLI (Command Line Interface)](https://github.com/docsifyjs/docsify-cli)
-- CDN: [UNPKG](https://unpkg.com/docsify/) | [jsDelivr](https://cdn.jsdelivr.net/npm/docsify/) | [cdnjs](https://cdnjs.com/libraries/docsify)
-- [`develop` branch preview](https://docsify-preview.vercel.app/)
-- [Awesome docsify](https://github.com/docsifyjs/awesome-docsify)
-- [Community chat](https://discord.gg/3NwKFyR)
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/docsify/contribute)]
-
-<a href="https://opencollective.com/docsify#backers" target="_blank"><img src="https://opencollective.com/docsify/backers.svg?width=890"></a>
-
-## Sponsors
-
-Thank you for supporting this project! ❤️ [[Become a sponsor](https://opencollective.com/docsify/contribute)]
-
-<img src="https://opencollective.com/docsify/sponsors.svg?width=890" />
-
-## Contributors
-
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-
-<a href="https://github.com/docsifyjs/docsify/graphs/contributors"><img src="https://opencollective.com/docsify/contributors.svg?width=890" /></a>
-
-## License
-
-[MIT](LICENSE)
+Users and the development team are usually in the [Discord server](https://discord.gg/3NwKFyR).
