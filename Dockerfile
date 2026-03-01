@@ -1,12 +1,8 @@
 # Dockerfile for EXNESS Terminal Support Services
-# This container runs supporting services that connect to the native MT5 installation
-
 FROM python:3.11-slim
 
-# Set working directory
 WORKDIR /app
 
-# Install system dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
@@ -15,21 +11,16 @@ RUN apt-get update && apt-get install -y \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy and install Python dependencies
-COPY docker/trading-bridge/requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy bridge service
-COPY bridge/ ./bridge/
+# Copy all python scripts and config from root
+COPY *.py ./
 COPY config/ ./config/
 
-# Expose ports
 EXPOSE 5555 8000
 
-# Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:8000/health || false
 
-# Start the bridge service
-CMD ["python", "-m", "bridge.main"]
-
+CMD ["python", "main.py"]
