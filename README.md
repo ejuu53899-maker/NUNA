@@ -1,331 +1,987 @@
-# EXNESS Docker Setup
-
-## 📓 Knowledge Base
-- **NotebookLM**: [Access here](https://notebooklm.google.com/notebook/e8f4c29d-9aec-4d5f-8f51-2ca168687616)
-- **Note**: This notebook is available for reading and writing. AI agents must read it before starting work.
-
-
-Docker containerization setup for EXNESS MetaTrader 5 terminal with supporting services.
-
-## 🌐 Cloud Development & Repository Integration
-
-**Multiple Development Environments:**
-- 💻 **GitHub**: https://github.com/A6-9V/NUNA (Primary repository)
-- ☁️ **Replit**: https://replit.com/@mouy-leng/httpsgithubcomA6-9VMetatrader5EXNESS (Cloud IDE)
-- 📦 **Forge MQL5**: https://forge.mql5.io/LengKundee/NUNA (MQL5 community)
-
-**Quick Links:**
-- [Replit Integration Guide](REPLIT_INTEGRATION.md) - Develop in the cloud
-- [Forge MQL5 Setup Guide](FORGE_MQL5_SETUP.md) - Sync with MQL5 community
-- [GitLab Runner Setup Guide](GITLAB_RUNNER_SETUP.md) - CI/CD with GitLab runners
-
-## Table of Contents
-
-- [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
-- [Quick Start](#quick-start)
-- [Configuration](#configuration)
-- [Services](#services)
-- [Documentation](#documentation)
-- [Directory Structure](#directory-structure)
-- [Management](#management)
-- [Troubleshooting](#troubleshooting)
-
-## Architecture
-
-This Docker setup provides:
-- **Trading Bridge Service**: Connects Docker services to your native MT5 installation
-- **PostgreSQL**: Trade history and data storage
-- **Redis**: Caching and real-time data
-- **InfluxDB**: Time-series metrics storage
-- **Grafana**: Monitoring and visualization dashboard
-
-See [Architecture Documentation](docs/ARCHITECTURE.md) for detailed system overview.
-
-## Prerequisites
-
-1. **Docker Desktop** installed and running
-   - Download from: https://www.docker.com/products/docker-desktop
-   - Ensure Docker Desktop is running before launching
-
-2. **MT5 Terminal** installed at:
-   - `D:\Users\USERNAME\AppData\Roaming\MetaQuotes\Terminal\D0E8209F77C8CF37AD8BF550E51FF075`
-   - **Note:** Replace `USERNAME` with your Windows username and verify your drive letter (typically C:\ or D:\)
-
-## Quick Start
-
-### Step 1: Configure Environment
-
-```powershell
-# Copy environment template
-Copy-Item env.template .env
-
-# Or use the setup script
-.\scripts\setup-env.ps1
-
-# Edit with your credentials
-notepad .env
-```
-
-### Step 2: Launch Services
-
-**Option A: PowerShell Script (Recommended)**
-```powershell
-.\scripts\launch-docker.ps1
-```
-
-**Option B: Batch File**
-```powershell
-.\scripts\launch-docker.bat
-```
-
-**Option C: Manual**
-```powershell
-docker-compose up -d
-```
-
-**Option D: VS Code Tasks (Recommended for VS Code Users)**
-```
-Press Ctrl+Shift+P (or Cmd+Shift+P on Mac)
-Type "Tasks: Run Task"
-Select "Start Project"
-```
-
-Available VS Code tasks:
-- **Start Project**: Start all Docker services (default build task: Ctrl+Shift+B)
-- **Stop Project**: Stop all Docker services
-- **Full Project Setup**: Complete setup including Python environment, validation, and Docker startup
-- **Setup Python Environment**: Initialize Python virtual environment and install dependencies
-- **Validate Environment**: Validate environment configuration
-- **Check Docker Status**: View status of all containers
-- **View Docker Logs**: Stream logs from all containers
-- **Restart Docker Services**: Restart all containers
-- **Rebuild Docker Containers**: Rebuild all containers from scratch
-
-### Step 3: Verify Services
-
-```powershell
-docker-compose ps
-```
-
-You should see 5 containers running:
-- ✅ exness-trading-bridge
-- ✅ exness-postgres
-- ✅ exness-redis
-- ✅ exness-influxdb
-- ✅ exness-grafana
-
-## Configuration
-
-### Environment Variables
-
-All configuration is managed through the `.env` file. See [Configuration Guide](docs/CONFIGURATION.md) for detailed information.
-
-**Required Variables**:
-- `EXNESS_LOGIN` - Your MT5 account number
-- `EXNESS_PASSWORD` - Your MT5 account password
-- `EXNESS_SERVER` - MT5 server name
-- `MT5_PATH` - Path to MT5 terminal directory
-
-**Optional Variables**:
-- `SYMBOLS` - Comma-separated list of trading symbols (33+ supported)
-- `BRIDGE_PORT` - Bridge port (default: 5555)
-- `API_PORT` - API port (default: 8000)
-
-### Symbols Configuration
-
-**Method 1: Environment Variable** (Simple)
-```env
-SYMBOLS=EURUSD,GBPUSD,USDJPY,AUDUSD
-```
-
-**Method 2: JSON Configuration** (Detailed)
-Edit `config/symbols.json` for per-symbol risk management settings.
-
-**Method 3: Hybrid** (Recommended)
-Use both - env var for quick list, JSON for detailed settings.
-
-See [Configuration Guide](docs/CONFIGURATION.md) for more details.
-
-## Services
-
-Once launched, the following services are available:
-
-| Service | URL | Credentials |
-|---------|-----|-------------|
-| Trading Bridge API | http://localhost:8000 | - |
-| Trading Bridge Port | localhost:5555 | - |
-| Grafana Dashboard | http://localhost:3000 | admin/admin |
-| PostgreSQL | localhost:5432 | exness_user/exness_password |
-| Redis | localhost:6379 | - |
-| InfluxDB | http://localhost:8086 | admin/adminpassword |
-
-## Documentation
-
-- [Quick Start Guide](docs/QUICK-START.md) - Step-by-step setup instructions
-- [Demo Account Setup](docs/DEMO-SETUP.md) - Demo account configuration
-- [Architecture](docs/ARCHITECTURE.md) - System architecture and design
-- [Configuration Guide](docs/CONFIGURATION.md) - Detailed configuration reference
-- [Migration Guide](docs/MIGRATION-GUIDE.md) - **NEW**: Guide for migrating to restructured project
-- [MQL5 Git Setup](docs/MQL5-GIT-SETUP.md) - Git repository configuration
-- [VPS Deployment](VPS_DEPLOYMENT.md) - **NEW**: Automated VPS deployment guide
-- [VPS Hosting](VPS_HOSTING.md) - VPS configuration and management
-- [Forge MQL5 Setup](FORGE_MQL5_SETUP.md) - **NEW**: forge.mql5.io integration and sync
-- [Replit Integration](REPLIT_INTEGRATION.md) - **NEW**: Cloud development with Replit
-- [GitLab Runner Setup](GITLAB_RUNNER_SETUP.md) - **NEW**: GitLab CI/CD runner configuration
-
-## Directory Structure
-
-```
-exness-docker/
-├── docker/
-│   └── trading-bridge/
-│       ├── Dockerfile
-│       └── requirements.txt
-├── config/
-│   ├── brokers.json
-│   ├── symbols.json
-│   └── mt5-demo.json
-├── scripts/
-│   ├── launch-docker.ps1
-│   ├── setup-env.ps1
-│   ├── check-status.ps1
-│   └── *.bat files
-├── docs/
-│   ├── QUICK-START.md
-│   ├── DEMO-SETUP.md
-│   ├── ARCHITECTURE.md
-│   ├── CONFIGURATION.md
-│   └── MIGRATION-GUIDE.md
-├── bridge/
-│   ├── __init__.py
-│   └── main.py
-├── logs/
-├── data/
-├── init-db/
-├── grafana/
-│   └── provisioning/
-├── docker-compose.yml
-├── env.template
-├── .gitignore
-└── README.md
-```
-
-## Management
-
-### View Logs
-```powershell
-# All services
-docker-compose logs -f
-
-# Specific service
-docker-compose logs -f trading-bridge
-```
-
-### Stop Services
-```powershell
-.\scripts\stop-docker.ps1
-# or
-docker-compose down
-```
-
-### Restart Services
-```powershell
-docker-compose restart
-```
-
-### Rebuild Containers
-```powershell
-docker-compose build --no-cache
-docker-compose up -d
-```
-
-### Check Status
-```powershell
-.\scripts\check-status.ps1
-# or
-docker-compose ps
-```
-
-## Connecting MT5 EA to Docker
-
-1. **Ensure Docker services are running**:
-   ```powershell
-   docker-compose ps
-   ```
-
-2. **Configure your MT5 EA**:
-   - BridgePort: `5555` (or value from `BRIDGE_PORT` env var)
-   - BrokerName: `EXNESS_DEMO` (or your broker name)
-   - AutoExecute: `true`
-
-3. **Attach EA to chart** in MT5 terminal
-
-## Troubleshooting
-
-### Docker not running
-- Start Docker Desktop
-- Verify with: `docker ps`
-
-### Port already in use
-- Check what's using the port: `netstat -ano | findstr :5555`
-- Change port in `.env` file
-
-### MT5 path not found
-- Verify MT5 installation path
-- Update `MT5_PATH` in `.env` file
-
-### Container fails to start
-- Check logs: `docker-compose logs trading-bridge`
-- Verify `.env` file exists and is configured
-- Ensure Docker has enough resources allocated
-
-### Configuration issues
-- Verify `.env` file exists in root directory
-- Check all required environment variables are set
-- Review [Configuration Guide](docs/CONFIGURATION.md)
-
-## Health Checks
-
-Check service health:
-```powershell
-# API health check
-curl http://localhost:8000/health
-
-# Container health
-docker-compose ps
-```
-
-## Data Persistence
-
-All data is stored in Docker volumes:
-- `postgres-data`: Database data
-- `redis-data`: Cache data
-- `influxdb-data`: Time-series data
-- `grafana-data`: Grafana configuration
-
-To remove all data:
-```powershell
-docker-compose down -v
-```
-
-## Security
-
-- **Never commit `.env` file** to version control
-- Credentials are stored in `.env` (git-ignored)
-- Use strong passwords for database services
-- Restrict network access to exposed ports
-
-## Next Steps
-
-1. Configure EXNESS credentials in `.env`
-2. Set up Grafana dashboards for monitoring
-3. Connect your MT5 EA to the bridge service
-4. Configure trading strategies and risk management
-5. Review [Architecture Documentation](docs/ARCHITECTURE.md)
+# GENX v3.6.9
+
+**AI-Native Operating System & Hybrid AI Agent Network**
+
+- **Owner:** NUNA
+- **Project:** GENX / BLUEDIM
+- **Version:** 3.6.9
+- **Architecture:** Hybrid AI Agent Network / AgentOS
+- **Primary Workload:** Autonomous AI-assisted trading
+- **Runtime:** Local LAN + Edge Devices + Cloud VPS
+- **Execution:** Python + Node.js + MT5/MQL5
+- **Control:** Jules + Cursor + AI Agent Network Controller
+
+GENX is an AI-native operating and orchestration layer that connects AI agents, skills, devices, data, cloud services, and execution systems into one coordinated network. Trading is a primary workload, but GENX is designed as a general-purpose **AI Agent Operating System / Control Plane**.
 
 ---
 
-**Note**: This setup connects to your native MT5 installation. The MT5 terminal itself runs on Windows, while supporting services run in Docker containers.
+## 1. What Is GENX?
 
-**Last Updated**: 2025-12-29
+GENX treats AI capabilities as modular system components rather than isolated applications.
+
+The system can:
+
+- Build capabilities from a central **Core / Brain**
+- Install and manage modular **AI Skills / Plugins**
+- Discover and communicate with other **AI agents**
+- Coordinate agents through **routing and mission control**
+- Connect local devices through a secure **LAN/VPN layer**
+- Maintain structured **AI memory**
+- Monitor devices, services, and workloads
+- Connect external APIs and cloud services
+- Separate AI decision-making from deterministic execution
+- Operate **MT5/MQL5 trading infrastructure**
+- Monitor VPS and edge-node health
+- Provide emergency stop and operational controls
+- Support continuous development through **Jules/Cursor**
+
+GENX is therefore designed as a **control plane for a distributed AI-agent ecosystem**.
+
+---
+
+## 2. Core Philosophy
+
+GENX follows the principle:
+
+> **«Compress → Plug In → Build In → Build From Core»**
+
+The Core/Brain provides the common foundation from which new agents, skills, connectors, and services can be assembled.
+
+Instead of creating independent systems repeatedly, GENX turns reusable capabilities into modular components.
+
+```text
+                 ┌─────────────────────────┐
+                 │       GENX CORE / BRAIN  │
+                 │     Central Control      │
+                 └────────────┬────────────┘
+                              │
+          ┌───────────────────┼───────────────────┐
+          │                   │                   │
+       Agents              Skills             Memory
+          │                   │                   │
+          └───────────────────┼───────────────────┘
+                              │
+                 ┌────────────▼────────────┐
+                 │ AI AGENT NETWORK        │
+                 │ CONTROLLER /            │
+                 │ CENTER HANDLER          │
+                 └────────────┬────────────┘
+                              │
+          ┌───────────────────┼───────────────────┐
+          │                   │                   │
+       Devices             Cloud              Trading
+          │                   │                   │
+      Mini-PC/VPS       Firebase/APIs       MT5 / MQL5
+```
+
+---
+
+## 3. AgentOS Architecture
+
+GENX v3.6.9 is organized around several core subsystems:
+
+```text
+GENX
+│
+├── Agent Kernel
+├── Agent Identity
+├── A2A Registry
+├── Router / Dispatcher
+├── Memory Core
+├── Security Gatekeeper
+├── Skill Plugin Manager
+├── Mission Engine
+├── Device Network Controller
+├── Trading Intelligence Handler
+├── Connector Layer
+├── Vault / Secrets Layer
+├── Monitoring / Watchdog
+├── Dashboard / API
+└── Launcher / Operations
+```
+
+### Agent Kernel
+
+Foundational runtime for GENX agents:
+
+- Agent lifecycle
+- Identity
+- Capabilities
+- Permissions
+- Communication
+- Execution context
+- Health state
+
+### Agent Identity
+
+Each agent has a role, capability set, and permission boundary:
+
+- Core agents
+- Specialist agents
+- Trading, Research, Device, Monitoring, Security, Deployment agents, etc.
+
+### A2A Registry
+
+Agent-to-Agent registry for capability discovery and controlled communication:
+
+```text
+Agent A
+   │
+   ▼
+A2A Registry
+   │
+   ├── Trading Agent
+   ├── Research Agent
+   ├── Risk Agent
+   ├── Device Agent
+   └── Monitoring Agent
+```
+
+---
+
+## 4. AI Agent Network Controller / Center Handler
+
+The **AI Agent Network Controller / Center Handler** is the central nervous system of GENX.
+
+It coordinates:
+
+- Agent discovery and routing
+- Mission assignment
+- Skill selection
+- Device communication
+- Security permissions
+- Memory access
+- Trading intelligence
+- Monitoring and operational events
+
+```text
+User / Operator
+       │
+       ▼
+AI Agent Center Handler
+       │
+       ▼
+Router / Dispatcher
+       │
+ ┌─────┼────────┬─────────┐
+ ▼     ▼        ▼         ▼
+AI   Risk    Device    Research
+Agent Agent   Agent      Agent
+ │     │        │         │
+ └─────┴────────┴─────────┘
+              │
+              ▼
+           GENX Core
+```
+
+---
+
+## 5. Intelligent Routing
+
+GENX supports multiple agent-routing patterns:
+
+- **Specialist Routing:** Task → best-fit agent
+- **Hierarchical Routing:** Coordinator → subtasks → specialists
+- **Consensus Routing:** Multiple agents analyze; coordinator aggregates
+
+AI analysis is kept separate from deterministic safety and execution rules.
+
+---
+
+## 6. Three-Layer Memory
+
+```text
+┌─────────────────────────┐
+│ Working / Runtime Memory│
+├─────────────────────────┤
+│ Operational Memory      │
+├─────────────────────────┤
+│ Long-Term Knowledge     │
+└─────────────────────────┘
+```
+
+Memory supports:
+
+- Agent state and missions
+- Trade journals and system events
+- Research and historical decisions
+- Device state and operational knowledge
+
+Sensitive credentials and secrets remain outside normal application memory (see Vault).
+
+---
+
+## 7. Security Gatekeeper
+
+Security is a dedicated control layer that separates:
+
+- **AI reasoning**
+- from **permission + risk + execution**
+
+Example permission levels:
+
+- Level 0 → Public / Read
+- Level 1 → Local Operations
+- Level 2 → Protected Services
+- Level 3 → Administrative Operations
+- Level 4 → Critical / Trading Operations
+
+Trading actions are additionally subject to dynamic risk gates. AI cannot bypass deterministic safety controls.
+
+---
+
+## 8. Skill Plugin System
+
+Capabilities are implemented as installable **skills**:
+
+```text
+skills/
+├── market/
+├── strategy/
+├── risk/
+├── execution/
+├── memory/
+├── research/
+├── monitoring/
+├── security/
+└── trading/
+    └── mt5_bridge/
+```
+
+Standard skill layout:
+
+```text
+skill/
+├── manifest.yaml
+├── README.md
+├── src/
+├── config/
+├── tests/
+├── models/
+├── data/
+├── logs/
+└── version.txt
+```
+
+Lifecycle:
+
+1. Discovery
+2. Download
+3. Signature Verification
+4. Installation
+5. Testing
+6. Activation
+7. Execution
+8. Update
+9. Rollback if required
+
+---
+
+## 9. Device Network Controller
+
+GENX operates across multiple physical devices.
+
+Conceptual topology:
+
+```text
+                         INTERNET
+                            │
+                            ▼
+                   ┌─────────────────┐
+                   │ Contabo VPS 4   │
+                   │ GENX Cloud Core │
+                   └────────┬────────┘
+                            │
+                         VPN/LAN
+                            │
+                    ┌───────▼───────┐
+                    │ Home Router   │
+                    └───────┬───────┘
+                            │
+             ┌──────────────┼──────────────┐
+             │              │              │
+             ▼              ▼              ▼
+        Mini-PC          Laptop        MT5 System
+       Edge Agent      Admin/Watchdog   EA/Terminal
+```
+
+### Mini‑PC (Edge Node)
+
+- Local GENX edge node / sandbox
+- Responsibilities:
+  - Local AI services
+  - LAN bridge
+  - Device controller
+  - Telemetry & watchdog
+  - Local automation
+  - Trading bridge support
+- Preferred mode: headless, Ethernet/LAN, remote administration.
+
+### Laptop
+
+- Development workstation
+- Administrative console
+- Monitoring interface & watchdog
+- Remote VS Code workstation
+
+### Contabo VPS 4
+
+- 24/7 cloud component
+- Target stack:
+  - Ubuntu 24.04
+  - Docker
+  - FastAPI
+  - PostgreSQL
+  - Redis
+  - Tailscale/VPN
+  - Monitoring
+  - GENX services
+  - Secure environment configuration
+- Target install path: `/opt/GENX`
+
+---
+
+## 10. BLUEDIM Edge Platform
+
+BLUEDIM is the broader edge/device platform around GENX:
+
+```text
+BLUEDIM
+│
+├── Brain
+├── Vision
+├── Vault
+├── Command
+├── Cloud
+└── TradeCore
+```
+
+Storage/device roles:
+
+- **BLUEDIM 64GB** – primary AI command/portable system layer
+- **ADATA 32GB** – portable edge/data worker layer
+- **Mini‑PC** – local GENX edge node
+- **Laptop** – administration/development
+- **VPS** – 24/7 cloud node
+
+These components are designed to operate as one coordinated system.
+
+---
+
+## 11. Trading Intelligence Architecture
+
+Trading is a primary workload, implemented as a controlled pipeline:
+
+```text
+Market Data
+     │
+     ▼
+AI / Strategy Analysis
+     │
+     ▼
+Signal (BUY / SELL / HOLD)
+     │
+     ▼
+Risk Engine
+     │
+     ▼
+Security Gatekeeper
+     │
+     ▼
+Execution Layer
+     │
+     ▼
+MT5 / MQL5 EA
+     │
+     ▼
+Broker
+```
+
+AI provides analysis and signals; deterministic risk and execution layers enforce constraints.
+
+---
+
+## 12. MT5 / MQL5 Bridge
+
+Bridge between AI services and MetaTrader 5:
+
+```text
+Python AI Engine
+       │
+       ▼
+FastAPI / LAN Bridge
+       │
+       ▼
+MT5 Expert Advisor
+       │
+       ▼
+MetaTrader 5
+       │
+       ▼
+Broker
+```
+
+The EA handles terminal-side execution and reports heartbeat/status back to GENX.
+
+---
+
+## 13. Trading Risk Architecture
+
+Risk is a separate subsystem with configurable constraints, e.g.:
+
+- Risk per Trade → 0.5–1%
+- Daily Loss Cap → 2%
+- Maximum Drawdown → 10%
+
+Architecture:
+
+```text
+AI Decision
+     │
+     ▼
+Risk Guard
+     │
+     ├── Position Size
+     ├── Exposure
+     ├── Daily Loss
+     ├── Drawdown
+     └── Trade Permission
+            │
+            ▼
+       Execution Gate
+```
+
+Risk parameters are configured outside AI models and enforced deterministically.
+
+---
+
+## 14. Trading Monitoring
+
+GENX monitors:
+
+- EA heartbeat
+- Trade journal
+- VPS & mini‑PC telemetry
+- Device health
+- MT5 connectivity
+- Service health
+- Remote emergency stop & resume controls
+- Operational events
+
+Watchdog detects conditions like:
+
+- EA / MT5 / LAN bridge / AI / risk service offline
+- Unexpected process state
+
+Critical failures lead to a safe operational state, not uncontrolled execution.
+
+---
+
+## 15. GENX Secret Vault
+
+Secrets are handled separately from source code:
+
+```text
+Vault
+│
+├── Templates
+├── Encryption
+├── Rotation
+├── Security Scanner
+└── Secret Control Layer
+```
+
+Potential integrations:
+
+- GitHub/GitLab CI
+- Firebase
+- MT5 & broker APIs
+- Jules, Cursor
+- VPS deployment
+
+**Security Rule:** Never hard-code passwords, API keys, tokens, SSH keys, broker or cloud credentials, certificates, or encryption keys. Use templates/placeholders in the repo; inject real secrets via Vault/CI at deploy time.
+
+---
+
+## 16. Jules + Cursor Development Model
+
+GENX uses an AI-assisted development workflow.
+
+### Jules
+
+Remote implementation/orchestration worker:
+
+- Repository analysis
+- Code changes
+- Testing
+- Branching & PRs
+- Deployment tasks
+- Documentation & maintenance
+
+### Cursor
+
+Development/control interface:
+
+- Architecture & code review
+- Local development
+- Repository navigation
+- Agent coordination
+- Debugging
+- System administration workflows
+
+Conceptually:
+
+```text
+                 NUNA
+                  │
+                  ▼
+          GENX Control Layer
+             /          \
+            /            \
+        Jules           Cursor
+       Worker            Brain
+          │                │
+          └──────┬─────────┘
+                 ▼
+             GENX Core
+                 │
+        ┌────────┼────────┐
+        ▼        ▼        ▼
+      Code     Agents   Devices
+```
+
+---
+
+## 17. Cloud & External Integrations
+
+GENX connects external services through controlled connectors:
+
+- GitHub, GitLab, Codeberg
+- MQL5, Firebase, Gemini, Replit
+- VS Code, Cursor, Jules
+- MT5, broker APIs, market data APIs
+
+Connectors follow the same security and permission model as internal agents.
+
+---
+
+## 18. Repository Architecture (Conceptual)
+
+```text
+GENX/
+│
+├── core/
+│   ├── kernel/
+│   ├── agents/
+│   ├── router/
+│   ├── memory/
+│   ├── security/
+│   └── controller/
+│
+├── agents/
+│   ├── trading/
+│   ├── research/
+│   ├── device/
+│   ├── monitoring/
+│   └── operations/
+│
+├── skills/
+│   ├── market/
+│   ├── strategy/
+│   ├── risk/
+│   ├── execution/
+│   ├── memory/
+│   ├── research/
+│   ├── monitoring/
+│   └── security/
+│
+├── connectors/
+│   ├── mt5/
+│   ├── firebase/
+│   ├── github/
+│   ├── gitlab/
+│   └── market-data/
+│
+├── data/
+├── models/
+├── vault/
+├── monitoring/
+├── dashboard/
+├── launcher/
+├── scripts/
+├── tests/
+├── docs/
+│
+├── artifacts/
+├── lib/
+├── package.json
+├── pnpm-workspace.yaml
+└── README.md
+```
+
+---
+
+## 19. Node.js + Python + MQL5
+
+GENX is a multi-runtime system.
+
+### Node.js
+
+- LAN bridge
+- APIs & web services
+- Device communication
+- Network orchestration
+- Frontend/backend integration
+
+### Python
+
+- AI decision engine
+- Data processing
+- Strategy research
+- Model inference
+- Risk analytics
+- Automation
+
+### MQL5
+
+- MT5 Expert Advisors
+- Terminal-side market interaction
+- Trade execution
+- Account information & position management
+- EA heartbeat
+
+---
+
+## 20. Replit / Package Management
+
+Current application lineage includes a Node.js workspace managed with pnpm.
+
+Workspace configuration includes:
+
+- **Minimum release age** for npm packages to reduce supply-chain risk
+- Exclusions only for trusted sources (e.g. `@replit/*`)
+
+Replit deployment lineage uses:
+
+- Node.js 24
+- Autoscale
+- Post-build cleanup (`pnpm store prune`)
+
+Environment configuration remains separate from source code.
+
+---
+
+## 21. Event-Driven Architecture
+
+Important system activities are modeled as events, e.g.:
+
+- `AGENT_STARTED`, `AGENT_STOPPED`, `AGENT_FAILED`
+- `DEVICE_ONLINE`, `DEVICE_OFFLINE`
+- `MT5_CONNECTED`, `MT5_DISCONNECTED`
+- `EA_HEARTBEAT`, `EA_TIMEOUT`
+- `SIGNAL_CREATED`, `RISK_APPROVED`, `RISK_REJECTED`
+- `TRADE_REQUESTED`, `TRADE_EXECUTED`, `TRADE_FAILED`
+- `MISSION_CREATED`, `MISSION_COMPLETED`, `MISSION_FAILED`
+- `SECURITY_ALERT`, `EMERGENCY_STOP`, `SYSTEM_RECOVERY`
+
+This event layer enables consistent monitoring, auditing, automation, and debugging.
+
+---
+
+## 22. Mission Engine
+
+Missions represent higher-level objectives:
+
+```text
+Mission
+   │
+   ▼
+Planner
+   │
+   ▼
+Router
+   │
+   ├── Agent A
+   ├── Agent B
+   └── Agent C
+   │
+   ▼
+Results
+   │
+   ▼
+Validation
+   │
+   ▼
+Mission Complete
+```
+
+Complex tasks are decomposed into smaller agent operations with clear ownership.
+
+---
+
+## 23. Dashboard & Control Plane
+
+A future GENX dashboard can expose:
+
+- Agent & device status
+- VPS & MT5 status
+- EA heartbeat
+- Trading & risk state
+- Missions, events, logs
+- System health
+- Emergency controls
+
+The dashboard is an operational interface, not a bypass for security controls.
+
+---
+
+## 24. Current Development Direction
+
+GENX is progressing toward a unified architecture:
+
+```text
+                    GENX CORE
+                       │
+        ┌──────────────┼──────────────┐
+        ▼              ▼              ▼
+    AI AGENTS        SKILLS        CONNECTORS
+        │              │              │
+        └──────────────┼──────────────┘
+                       ▼
+             AGENT CENTER HANDLER
+                       │
+              ┌────────┼────────┐
+              ▼        ▼        ▼
+            LAN      CLOUD     MT5
+          DEVICES     VPS      EA
+              │        │        │
+              └────────┼────────┘
+                       ▼
+                  GENX NETWORK
+```
+
+Long-term, new functionality should be **pluggable, composable, observable, secure, and recoverable**.
+
+---
+
+## 25. Development Principles
+
+1. Core-first architecture
+2. Modular skills
+3. Agent specialization
+4. A2A communication
+5. Deterministic security boundaries
+6. AI reasoning separated from critical execution
+7. Secrets separated from source
+8. Device health monitoring
+9. Event-driven operations
+10. Automated testing
+11. Rollback-capable deployment
+12. LAN/VPN-first private networking
+13. Cloud + edge hybrid operation
+14. Demo-first validation for trading
+15. Human-controlled critical actions
+
+---
+
+## 26. Security Boundary
+
+GENX assumes a **zero-trust mindset** between components.
+
+A device, agent, plugin, or connector does not get unrestricted access just because it is inside the LAN.
+
+Conceptual boundary:
+
+```text
+Request
+  │
+  ▼
+Identity
+  │
+  ▼
+Authentication
+  │
+  ▼
+Authorization
+  │
+  ▼
+Security Gatekeeper
+  │
+  ▼
+Risk Validation
+  │
+  ▼
+Execution
+```
+
+---
+
+## 27. Data & Secret Separation
+
+Repository migrations/imports distinguish between:
+
+**Safe to migrate:**
+
+- Source code
+- Documentation
+- Empty database schemas
+- Configuration templates
+- Tests
+- Public models
+- Deployment definitions
+
+**Never migrate automatically:**
+
+- Trading history
+- User database content
+- Camera data
+- Private logs
+- Passwords, API keys, tokens
+- Broker & cloud credentials
+- SSH keys, certificates, encryption secrets
+- Access tokens
+
+Private operational data belongs in controlled storage, not the source repo.
+
+---
+
+## 28. Deployment Model
+
+GENX is designed for repeatable deployment:
+
+```text
+Developer
+    │
+    ▼
+Git Repository
+    │
+    ▼
+Jules / CI
+    │
+    ├── Test
+    ├── Validate
+    ├── Build
+    └── Package
+         │
+         ▼
+     Deployment
+      /       \
+     ▼         ▼
+ Mini-PC     VPS
+     │         │
+     └────┬────┘
+          ▼
+      GENX Network
+```
+
+Deployment scripts should support:
+
+- `install`, `configure`, `start`, `stop`
+- `health_check`, `update`, `rollback`
+- `emergency_stop`
+
+---
+
+## 29. Example Operational Flow (Trading)
+
+A typical AI-assisted trading operation:
+
+```text
+Market Data
+     │
+     ▼
+Market Analysis
+     │
+     ▼
+Strategy Agent
+     │
+     ▼
+BUY / SELL / HOLD
+     │
+     ▼
+Risk Agent
+     │
+     ▼
+Security Gatekeeper
+     │
+     ▼
+Execution Agent
+     │
+     ▼
+MT5 Bridge
+     │
+     ▼
+MQL5 EA
+     │
+     ▼
+MT5
+     │
+     ▼
+Broker
+     │
+     ▼
+Trade Journal
+     │
+     ▼
+Memory / Analytics
+```
+
+Failures at every stage should be observable and recoverable.
+
+---
+
+## 30. GENX 3.6.9 Identity
+
+GENX v3.6.9 marks the transition from scripts and trading components to a unified **AI Agent Operating System / Network Control Plane**.
+
+Central concepts:
+
+> CORE → AGENTS → SKILLS → MEMORY → SECURITY → MISSIONS → DEVICES → CONNECTORS → EXECUTION → OBSERVABILITY
+
+The system grows by adding capabilities to the Core rather than rebuilding the entire platform.
+
+---
+
+## 31. Project Status
+
+- **Architecture:** Hybrid AI Agent Network / AgentOS
+- **Core Controller:** AI Agent Network Controller / Center Handler
+- **Agent Framework:** Agent Identity + A2A + Router/Dispatcher
+- **Memory:** Multi-layer architecture
+- **Security:** Security Gatekeeper + Vault
+- **Skills:** Plugin Manager
+- **Devices:** Mini‑PC + laptop + VPS architecture
+- **Cloud:** Contabo VPS 4 target
+- **Networking:** LAN + VPN/private connectivity
+- **Trading:** MT5/MQL5 bridge
+- **Development:** Jules + Cursor
+- **Primary trading mode:** Demo-first validation before production
+- **Version lineage:** v3.6.9
+
+---
+
+## 32. Roadmap
+
+### Phase 1 — Core
+
+- Agent Kernel
+- Agent Identity
+- A2A Registry
+- Router
+- Memory
+- Security Gatekeeper
+
+### Phase 2 — Network
+
+- Device Controller
+- LAN bridge
+- VPN connectivity
+- Heartbeat
+- Watchdog
+- Remote operations
+
+### Phase 3 — Skills
+
+- Skill Manager
+- Trading, research, monitoring, security skills
+- Connector framework
