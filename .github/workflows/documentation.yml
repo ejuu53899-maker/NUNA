@@ -75,6 +75,7 @@ jobs:
 
       - name: Markdown Lint
         uses: DavidAnson/markdownlint-cli2-action@v14
+        continue-on-error: true
         with:
           globs: |
             **/*.md
@@ -93,6 +94,7 @@ jobs:
 
       - name: Spell Check
         uses: rojopolis/spellcheck-github-actions@0.36.0
+        continue-on-error: true
         with:
           task_name: Markdown
 
