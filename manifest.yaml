@@ -1,0 +1,11 @@
+name: GENX
+description: GENX Hybrid AI Agent Network and AgentOS Platform
+genx_platform: "1.0.0"
+release_status: "stable"
+release_date: "2026-09-18"
+
+components:
+  genx_fx: "1.0.0"
+  skill_manager: "3.6.9"
+  mt5_bridge: "1.0.0"
+  trading_strategy: "1.00"

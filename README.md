@@ -329,3 +329,52 @@ docker-compose down -v
 **Note**: This setup connects to your native MT5 installation. The MT5 terminal itself runs on Windows, while supporting services run in Docker containers.
 
 **Last Updated**: 2025-12-29
+
+---
+
+## 🔖 Release & Versioning Policy
+
+GENX adheres to strict [Semantic Versioning (SemVer 2.0.0)](https://semver.org/) for its platform baseline releases while preserving independent component versioning.
+
+### Baseline Release Status
+- **GENX Platform**: `1.0.0`
+- **Release Status**: `stable`
+- **Release Date**: `2026-09-18`
+
+### Version Scheme (`MAJOR.MINOR.PATCH`)
+
+Releases follow the standard SemVer progression:
+
+- **PATCH Release** (e.g., `1.0.1`): Backward-compatible bug fixes, minor performance improvements, or documentation updates.
+- **MINOR Release** (e.g., `1.1.0`): Backward-compatible new features, new agent skills, or expanded platform capabilities.
+- **MAJOR Release** (e.g., `2.0.0`): Incompatible API changes, major architectural overhauls, or breaking configuration updates.
+
+### Component Version Independence
+
+To maintain modularity and rollbacks, individual components retain their standard internal versioning and are registered in `manifest.yaml`:
+
+| Component | Role | Baseline Version | Versioning Model |
+|-----------|------|------------------|------------------|
+| **GENX Platform** | AgentOS & Core System | `1.0.0` | SemVer (`X.Y.Z`) |
+| **GENX_FX** | Forex Trading Module | `1.0.0` | SemVer (`X.Y.Z`) |
+| **Skill Manager** | Agent Skill Registry | `3.6.9` | Internal Component Version |
+| **MT5 Bridge** | MetaTrader 5 Bridge API | `1.0.0` | SemVer (`X.Y.Z`) |
+| **Trading Strategy** | EA & Trading Strategies | `1.00` | Strategy Independent |
+
+### Automated Release Tooling (`release.sh`)
+
+To execute a release, use the automated release script:
+
+```bash
+# Execute a patch, minor, or major release
+./release.sh 1.0.1
+```
+
+The script automatically:
+1. Validates SemVer formatting and checks for tag collisions.
+2. Runs the full test suite (`pytest` / `unittest`).
+3. Updates `VERSION`, `version.txt`, `manifest.yaml`, and `package.json`.
+4. Appends release notes in `CHANGELOG.md`.
+5. Verifies cross-file version consistency via `python scripts/validate_version.py`.
+6. Generates Git commit `chore(release): release v<version>` and annotated tag `v<version>`.
+7. Pushes the release commit and tag to remote origin when available.

@@ -61,6 +61,15 @@ lint:
   tags:
     - docker
 
+# Version validation job
+version-check:
+  stage: test
+  script:
+    - echo "Validating GENX release version consistency..."
+    - python scripts/validate_version.py
+  tags:
+    - docker
+
 # Python syntax check job
 syntax-check:
   stage: test
@@ -72,6 +81,7 @@ syntax-check:
     - python -m compileall -q firebase_utils.py || echo "firebase_utils.py has syntax issues"
     - python -m compileall -q plugin_loader.py || echo "plugin_loader.py has syntax issues"
     - python -m compileall -q main.py || echo "main.py has syntax issues"
+    - python -m compileall -q scripts/validate_version.py || echo "scripts/validate_version.py has syntax issues"
     - echo "Syntax checks completed"
   tags:
     - docker
