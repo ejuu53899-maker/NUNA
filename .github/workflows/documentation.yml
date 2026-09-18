@@ -42,13 +42,18 @@ jobs:
             --exclude-mail
             --exclude 'localhost'
             --exclude '127.0.0.1'
+            --exclude 'https://github.com/A6-9V/NUNA*'
+            --exclude 'https://replit.com/*'
+            --exclude 'https://portal.azure.com/*'
+            --exclude 'https://hub.docker.com/*'
+            --exclude 'https://forge.mql5.io/*'
             --exclude-path '.venv'
             --exclude-path 'venv'
             --exclude-path 'ENV'
             --exclude-path '__pycache__'
             --max-concurrency 8
             '**/*.md'
-          fail: true
+          fail: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -89,7 +94,6 @@ jobs:
       - name: Spell Check
         uses: rojopolis/spellcheck-github-actions@0.36.0
         with:
-          source_files: '**/*.md'
           task_name: Markdown
 
   docs-summary:

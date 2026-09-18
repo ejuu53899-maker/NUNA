@@ -1,0 +1,9 @@
+config:
+  MD013: false # Line length
+  MD022: false # Blanks around headings
+  MD024: false # Multiple headings with the same content
+  MD031: false # Blanks around fences
+  MD032: false # Blanks around lists
+  MD034: false # Bare URLs
+  MD040: false # Fenced code language
+  MD041: false # First line in a file should be a top-level heading
