@@ -1,0 +1,10 @@
+[run]
+omit =
+    /tmp/*
+    */tmp/*
+    tmp*
+    */plugins/*
+    test_*.py
+
+[report]
+ignore_errors = True
