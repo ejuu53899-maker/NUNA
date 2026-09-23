@@ -3,7 +3,7 @@ services:
   trading-bridge:
     build:
       context: .
-      dockerfile: ./docker/trading-bridge/Dockerfile
+      dockerfile: ./Dockerfile
     container_name: exness-trading-bridge
     ports:
       - "${BRIDGE_PORT:-5555}:5555"  # MT5 Bridge port
@@ -13,7 +13,7 @@ services:
       - ./logs:/app/logs
       - ./data:/app/data
       # Mount MT5 terminal directory for file access
-      - ${MT5_PATH}:/mt5:ro
+      - ${MT5_PATH:-./mt5}:/mt5:ro
     env_file:
       - .env
     environment:
