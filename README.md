@@ -164,17 +164,14 @@ Once launched, the following services are available:
 
 ## Documentation
 
-- [Quick Start Guide](docs/QUICK-START.md) - Step-by-step setup instructions
-- [Demo Account Setup](docs/DEMO-SETUP.md) - Demo account configuration
-- [Architecture](docs/ARCHITECTURE.md) - System architecture and design
-- [Configuration Guide](docs/CONFIGURATION.md) - Detailed configuration reference
-- [Migration Guide](docs/MIGRATION-GUIDE.md) - **NEW**: Guide for migrating to restructured project
-- [MQL5 Git Setup](docs/MQL5-GIT-SETUP.md) - Git repository configuration
-- [VPS Deployment](VPS_DEPLOYMENT.md) - **NEW**: Automated VPS deployment guide
+- [Quick Start Guide](docs/07_quick_start.md) - Step-by-step setup instructions
+- [Configuration Guide](ENV_CONFIG.md) - Detailed configuration reference
+- [Migration Guide](RESTRUCTURE-COMPLETE.md) - Guide for migrating to restructured project
+- [VPS Deployment](VPS_DEPLOYMENT.md) - Automated VPS deployment guide
 - [VPS Hosting](VPS_HOSTING.md) - VPS configuration and management
-- [Forge MQL5 Setup](FORGE_MQL5_SETUP.md) - **NEW**: forge.mql5.io integration and sync
-- [Replit Integration](REPLIT_INTEGRATION.md) - **NEW**: Cloud development with Replit
-- [GitLab Runner Setup](GITLAB_RUNNER_SETUP.md) - **NEW**: GitLab CI/CD runner configuration
+- [Forge MQL5 Setup](FORGE_MQL5_SETUP.md) - forge.mql5.io integration and sync
+- [Replit Integration](REPLIT_INTEGRATION.md) - Cloud development with Replit
+- [GitLab Runner Setup](GITLAB_RUNNER_SETUP.md) - GitLab CI/CD runner configuration
 
 ## Directory Structure
 

@@ -1,0 +1,12 @@
+config:
+  MD013: false
+  MD033: false
+  MD041: false
+
+ignores:
+  - ".venv/**"
+  - "venv/**"
+  - "ENV/**"
+  - "__pycache__/**"
+  - "node_modules/**"
+  - ".jules/**"
