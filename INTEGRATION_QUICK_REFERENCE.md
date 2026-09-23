@@ -4,11 +4,21 @@
 
 | Platform | URL | Type |
 |----------|-----|------|
+| **GitHub Enterprise** | https://github.com/enterprises/lenga6-9v-5g | Enterprise |
 | **GitHub** | https://github.com/A6-9V/NUNA | Primary |
 | **forge.mql5.io** | https://forge.mql5.io/LengKundee/NUNA | Mirror |
 | **Replit** | https://replit.com/@mouy-leng/httpsgithubcomA6-9VMetatrader5EXNESS | Cloud IDE |
 
 ## ⚡ Quick Commands
+
+### Setup GitHub Enterprise
+```bash
+# Linux/Mac
+./scripts/setup-github-enterprise.sh
+
+# Windows
+.\scripts\setup-github-enterprise.ps1
+```
 
 ### Sync to forge.mql5.io
 ```bash
@@ -46,6 +56,7 @@ git fetch forge
 
 ## 📚 Documentation
 
+- [GITHUB_ENTERPRISE_SETUP.md](GITHUB_ENTERPRISE_SETUP.md) - Complete GitHub Enterprise guide
 - [FORGE_MQL5_SETUP.md](FORGE_MQL5_SETUP.md) - Complete forge.mql5.io guide
 - [REPLIT_INTEGRATION.md](REPLIT_INTEGRATION.md) - Complete Replit guide
 - [INTEGRATION_SETUP_SUMMARY.md](INTEGRATION_SETUP_SUMMARY.md) - Setup summary

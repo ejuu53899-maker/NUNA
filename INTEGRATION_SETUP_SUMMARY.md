@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document summarizes the forge.mql5.io and Replit integration setup completed on 2026-02-05.
+This document summarizes the repository integrations, including GitHub Enterprise Cloud (https://github.com/enterprises/lenga6-9v-5g), forge.mql5.io, and Replit setup.
 
 ## What Was Configured
 
@@ -179,6 +179,7 @@ git push forge --tags
 
 ## Repository URLs
 
+- **GitHub Enterprise**: https://github.com/enterprises/lenga6-9v-5g
 - **GitHub (Primary)**: https://github.com/A6-9V/NUNA
 - **forge.mql5.io**: https://forge.mql5.io/LengKundee/NUNA
 - **Replit**: https://replit.com/@mouy-leng/httpsgithubcomA6-9VMetatrader5EXNESS

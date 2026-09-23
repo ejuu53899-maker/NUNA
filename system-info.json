@@ -56,7 +56,7 @@
           "provider": "Exness MetaTrader VPS"
         },
         "subscription": {
-          "cost": 15.00,
+          "cost": 15.0,
           "currency": "USD",
           "start_date": "2026-01-18",
           "end_date": "2026-02-18",
@@ -75,7 +75,7 @@
           "provider": "Exness MetaTrader VPS"
         },
         "subscription": {
-          "cost": 10.00,
+          "cost": 10.0,
           "currency": "USD",
           "start_date": "2025-12-16",
           "end_date": "2026-01-16",
@@ -118,6 +118,19 @@
       "config_files": [
         ".replit",
         "replit.nix"
+      ]
+    },
+    "github_enterprise": {
+      "enterprise_url": "https://github.com/enterprises/lenga6-9v-5g",
+      "enterprise_slug": "lenga6-9v-5g",
+      "type": "enterprise",
+      "description": "GitHub Enterprise Cloud environment",
+      "configured_date": "2026-03-01",
+      "status": "active",
+      "documentation": "GITHUB_ENTERPRISE_SETUP.md",
+      "setup_scripts": [
+        "scripts/setup-github-enterprise.sh",
+        "scripts/setup-github-enterprise.ps1"
       ]
     }
   },
@@ -181,7 +194,10 @@
       "valid_until": "2036-02-03 06:49:00 GMT",
       "key_algorithm": "RSA 2048-bit",
       "purpose": "TLS Web Client Authentication",
-      "protocols_supported": ["TLSv1.2", "TLSv1.3"],
+      "protocols_supported": [
+        "TLSv1.2",
+        "TLSv1.3"
+      ],
       "installed_date": "2026-02-05",
       "status": "active",
       "documentation": "SSL_CERTIFICATE_SETUP.md"
@@ -208,4 +224,3 @@
     }
   }
 }
-

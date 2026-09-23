@@ -10,6 +10,7 @@ Docker containerization setup for EXNESS MetaTrader 5 terminal with supporting s
 ## 🌐 Cloud Development & Repository Integration
 
 **Multiple Development Environments:**
+- 🏢 **GitHub Enterprise**: https://github.com/enterprises/lenga6-9v-5g (Enterprise endpoint)
 - 💻 **GitHub**: https://github.com/A6-9V/NUNA (Primary repository)
 - ☁️ **Replit**: https://replit.com/@mouy-leng/httpsgithubcomA6-9VMetatrader5EXNESS (Cloud IDE)
 - 📦 **Forge MQL5**: https://forge.mql5.io/LengKundee/NUNA (MQL5 community)
@@ -18,6 +19,7 @@ Docker containerization setup for EXNESS MetaTrader 5 terminal with supporting s
 - [Replit Integration Guide](REPLIT_INTEGRATION.md) - Develop in the cloud
 - [Forge MQL5 Setup Guide](FORGE_MQL5_SETUP.md) - Sync with MQL5 community
 - [GitLab Runner Setup Guide](GITLAB_RUNNER_SETUP.md) - CI/CD with GitLab runners
+- [GitHub Enterprise Setup Guide](GITHUB_ENTERPRISE_SETUP.md) - **NEW**: Enterprise setup for lenga6-9v-5g
 
 ## Table of Contents
 
