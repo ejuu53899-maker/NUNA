@@ -44,8 +44,8 @@
 
 ### Phase 7: Documentation Consolidation ✅
 - ✅ Moved all documentation to `docs/` directory
-- ✅ Created `docs/ARCHITECTURE.md` with system overview
-- ✅ Created `docs/CONFIGURATION.md` with detailed config guide
+- ✅ Created `docs/01_Book_Map.md` with system overview
+- ✅ Created `ENV_CONFIG.md` with detailed config guide
 - ✅ Updated main `README.md` with new structure and links
 
 ### Phase 8: Script Updates ✅
@@ -141,4 +141,3 @@ Use `.\scripts\migrate-to-new-structure.ps1` for automated migration.
 
 **Implementation Date**: 2025-12-29
 **Status**: ✅ Complete and Ready
-
