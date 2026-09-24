@@ -42,7 +42,7 @@ This Docker setup provides:
 - **InfluxDB**: Time-series metrics storage
 - **Grafana**: Monitoring and visualization dashboard
 
-See [Architecture Documentation](docs/ARCHITECTURE.md) for detailed system overview.
+See [Architecture Documentation](docs/01_Book_Map.md) for detailed system overview.
 
 ## Prerequisites
 
@@ -121,7 +121,7 @@ You should see 5 containers running:
 
 ### Environment Variables
 
-All configuration is managed through the `.env` file. See [Configuration Guide](docs/CONFIGURATION.md) for detailed information.
+All configuration is managed through the `.env` file. See [Configuration Guide](ENV_CONFIG.md) for detailed information.
 
 **Required Variables**:
 - `EXNESS_LOGIN` - Your MT5 account number
@@ -147,7 +147,7 @@ Edit `config/symbols.json` for per-symbol risk management settings.
 **Method 3: Hybrid** (Recommended)
 Use both - env var for quick list, JSON for detailed settings.
 
-See [Configuration Guide](docs/CONFIGURATION.md) for more details.
+See [Configuration Guide](ENV_CONFIG.md) for more details.
 
 ## Services
 
@@ -282,7 +282,7 @@ docker-compose ps
 ### Configuration issues
 - Verify `.env` file exists in root directory
 - Check all required environment variables are set
-- Review [Configuration Guide](docs/CONFIGURATION.md)
+- Review [Configuration Guide](ENV_CONFIG.md)
 
 ## Health Checks
 
@@ -321,7 +321,7 @@ docker-compose down -v
 2. Set up Grafana dashboards for monitoring
 3. Connect your MT5 EA to the bridge service
 4. Configure trading strategies and risk management
-5. Review [Architecture Documentation](docs/ARCHITECTURE.md)
+5. Review [Architecture Documentation](docs/01_Book_Map.md)
 
 ---
 
