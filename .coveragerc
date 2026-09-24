@@ -1,0 +1,9 @@
+[run]
+omit =
+    /tmp/*
+    */plugins/*
+    test_*.py
+    */site-packages/*
+
+[report]
+ignore_errors = True

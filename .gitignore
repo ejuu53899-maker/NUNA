@@ -4,3 +4,6 @@
 # Cloned repositories
 MQL5-Google-Onedrive/
 cli/
+.coverage
+__pycache__/
+*.pyc

@@ -31,7 +31,7 @@ For comprehensive documentation including:
 - GitHub Actions integration examples
 - Troubleshooting guide
 
-See: [guidebook/09_supabase_credentials.md](guidebook/09_supabase_credentials.md)
+See: [docs/09_supabase_credentials.md](docs/09_supabase_credentials.md)
 
 ---
 

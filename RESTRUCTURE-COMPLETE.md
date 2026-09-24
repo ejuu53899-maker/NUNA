@@ -129,8 +129,8 @@ Use both - env var for quick list, JSON for detailed settings.
 ## Files Created
 
 - `config/.env.example` - Environment template
-- `docs/ARCHITECTURE.md` - System architecture
-- `docs/CONFIGURATION.md` - Configuration guide
+- `docs/01_Book_Map.md` - System architecture
+- `ENV_CONFIG.md` - Configuration guide
 - `scripts/migrate-to-new-structure.ps1` - Migration helper
 - `.gitignore` - Comprehensive ignore rules
 
@@ -159,12 +159,11 @@ Use both - env var for quick list, JSON for detailed settings.
 ## Support
 
 - See [README.md](README.md) for overview
-- See [docs/QUICK-START.md](docs/QUICK-START.md) for setup
-- See [docs/CONFIGURATION.md](docs/CONFIGURATION.md) for configuration
-- See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for architecture
+- See [docs/07_quick_start.md](docs/07_quick_start.md) for setup
+- See [ENV_CONFIG.md](ENV_CONFIG.md) for configuration
+- See [docs/01_Book_Map.md](docs/01_Book_Map.md) for architecture
 
 ---
 
 **Restructure Date**: 2025-12-29
 **Status**: ✅ Complete
-

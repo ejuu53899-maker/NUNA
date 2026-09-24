@@ -99,7 +99,7 @@ This document describes all the continuous integration and deployment workflows 
 7. ✅ Starts new containers
 8. ✅ Verifies deployment
 
-For detailed VPS deployment documentation, see [VPS_DEPLOYMENT.md](../VPS_DEPLOYMENT.md).
+For detailed VPS deployment documentation, see [VPS_DEPLOYMENT.md](VPS_DEPLOYMENT.md).
 
 ---
 
@@ -456,7 +456,7 @@ bash -x scripts/deploy-vps.sh
 # Variable: VPS_DEPLOYMENT_ENABLED=true
 ```
 
-For detailed VPS troubleshooting, see [VPS_DEPLOYMENT.md](../VPS_DEPLOYMENT.md#troubleshooting).
+For detailed VPS troubleshooting, see [VPS_DEPLOYMENT.md](VPS_DEPLOYMENT.md#troubleshooting).
 
 ### Getting Help
 
@@ -486,9 +486,9 @@ For detailed VPS troubleshooting, see [VPS_DEPLOYMENT.md](../VPS_DEPLOYMENT.md#t
 
 ## Related Documentation
 
-- [VPS Deployment Guide](../VPS_DEPLOYMENT.md) - Complete VPS deployment documentation
-- [VPS Hosting Configuration](../VPS_HOSTING.md) - VPS server details and management
-- [README](../README.md) - Main project documentation
+- [VPS Deployment Guide](VPS_DEPLOYMENT.md) - Complete VPS deployment documentation
+- [VPS Hosting Configuration](VPS_HOSTING.md) - VPS server details and management
+- [README](README.md) - Main project documentation
 
 ---
 

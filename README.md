@@ -10,6 +10,7 @@ Docker containerization setup for EXNESS MetaTrader 5 terminal with supporting s
 ## 🌐 Cloud Development & Repository Integration
 
 **Multiple Development Environments:**
+- 🏢 **GitHub Enterprise**: https://github.com/enterprises/lenga6-9v-5g (Enterprise endpoint)
 - 💻 **GitHub**: https://github.com/A6-9V/NUNA (Primary repository)
 - ☁️ **Replit**: https://replit.com/@mouy-leng/httpsgithubcomA6-9VMetatrader5EXNESS (Cloud IDE)
 - 📦 **Forge MQL5**: https://forge.mql5.io/LengKundee/NUNA (MQL5 community)
@@ -18,6 +19,7 @@ Docker containerization setup for EXNESS MetaTrader 5 terminal with supporting s
 - [Replit Integration Guide](REPLIT_INTEGRATION.md) - Develop in the cloud
 - [Forge MQL5 Setup Guide](FORGE_MQL5_SETUP.md) - Sync with MQL5 community
 - [GitLab Runner Setup Guide](GITLAB_RUNNER_SETUP.md) - CI/CD with GitLab runners
+- [GitHub Enterprise Setup Guide](GITHUB_ENTERPRISE_SETUP.md) - **NEW**: Enterprise setup for lenga6-9v-5g
 
 ## Table of Contents
 
@@ -40,7 +42,7 @@ This Docker setup provides:
 - **InfluxDB**: Time-series metrics storage
 - **Grafana**: Monitoring and visualization dashboard
 
-See [Architecture Documentation](docs/ARCHITECTURE.md) for detailed system overview.
+See [Architecture Documentation](docs/01_Book_Map.md) for detailed system overview.
 
 ## Prerequisites
 
@@ -119,7 +121,7 @@ You should see 5 containers running:
 
 ### Environment Variables
 
-All configuration is managed through the `.env` file. See [Configuration Guide](docs/CONFIGURATION.md) for detailed information.
+All configuration is managed through the `.env` file. See [Configuration Guide](ENV_CONFIG.md) for detailed information.
 
 **Required Variables**:
 - `EXNESS_LOGIN` - Your MT5 account number
@@ -145,7 +147,7 @@ Edit `config/symbols.json` for per-symbol risk management settings.
 **Method 3: Hybrid** (Recommended)
 Use both - env var for quick list, JSON for detailed settings.
 
-See [Configuration Guide](docs/CONFIGURATION.md) for more details.
+See [Configuration Guide](ENV_CONFIG.md) for more details.
 
 ## Services
 
@@ -162,17 +164,14 @@ Once launched, the following services are available:
 
 ## Documentation
 
-- [Quick Start Guide](docs/QUICK-START.md) - Step-by-step setup instructions
-- [Demo Account Setup](docs/DEMO-SETUP.md) - Demo account configuration
-- [Architecture](docs/ARCHITECTURE.md) - System architecture and design
-- [Configuration Guide](docs/CONFIGURATION.md) - Detailed configuration reference
-- [Migration Guide](docs/MIGRATION-GUIDE.md) - **NEW**: Guide for migrating to restructured project
-- [MQL5 Git Setup](docs/MQL5-GIT-SETUP.md) - Git repository configuration
-- [VPS Deployment](VPS_DEPLOYMENT.md) - **NEW**: Automated VPS deployment guide
+- [Quick Start Guide](docs/07_quick_start.md) - Step-by-step setup instructions
+- [Configuration Guide](ENV_CONFIG.md) - Detailed configuration reference
+- [Migration Guide](RESTRUCTURE-COMPLETE.md) - Guide for migrating to restructured project
+- [VPS Deployment](VPS_DEPLOYMENT.md) - Automated VPS deployment guide
 - [VPS Hosting](VPS_HOSTING.md) - VPS configuration and management
-- [Forge MQL5 Setup](FORGE_MQL5_SETUP.md) - **NEW**: forge.mql5.io integration and sync
-- [Replit Integration](REPLIT_INTEGRATION.md) - **NEW**: Cloud development with Replit
-- [GitLab Runner Setup](GITLAB_RUNNER_SETUP.md) - **NEW**: GitLab CI/CD runner configuration
+- [Forge MQL5 Setup](FORGE_MQL5_SETUP.md) - forge.mql5.io integration and sync
+- [Replit Integration](REPLIT_INTEGRATION.md) - Cloud development with Replit
+- [GitLab Runner Setup](GITLAB_RUNNER_SETUP.md) - GitLab CI/CD runner configuration
 
 ## Directory Structure
 
@@ -283,7 +282,7 @@ docker-compose ps
 ### Configuration issues
 - Verify `.env` file exists in root directory
 - Check all required environment variables are set
-- Review [Configuration Guide](docs/CONFIGURATION.md)
+- Review [Configuration Guide](ENV_CONFIG.md)
 
 ## Health Checks
 
@@ -322,7 +321,7 @@ docker-compose down -v
 2. Set up Grafana dashboards for monitoring
 3. Connect your MT5 EA to the bridge service
 4. Configure trading strategies and risk management
-5. Review [Architecture Documentation](docs/ARCHITECTURE.md)
+5. Review [Architecture Documentation](docs/01_Book_Map.md)
 
 ---
 
